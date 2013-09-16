@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="libs/slider/js/bootstrap-slider.js"></script>
+    
+    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <link href="libs/slider/css/slider.css" rel="stylesheet" media="screen">
+ <style>
+.fader-unit
+{
+  border-color: #fff;
+  border-style: solid;
+  border-width: 1px;
+  text-align  : center;
+  padding     : 8px;
+}
+.module-board
+{
+  border-color: #fff;
+  border-style: solid;
+  border-width: 1px;
+  text-align  : center;
+  padding     : 8px;
+
+}
+.slider-selection
+{
+  background: #000;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 1px;
+}
+.slider-track
+{
+  background: #fff;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 1px;
+}
+.slider-handle
+{
+  background: #000;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 1px;
+  opacity     : 1;
+}
+.control-panel
+{
+  margin        : 20px;
+  border-color  : #fff;
+  border-style  : solid;
+  border-width  : 3px;
+  padding:      : 10px;
+}
+
+ </style>
+  </head>
+  <body style="background-color: #000000;">
+  <h1>..cloud.synth..</h1>
+  <div class="control-panel">
+    <div class="module-board"
+      style="float: left;">
+      <div> 
+        <div
+          class="module-board"
+          style="float: left;" >
+          
+          <h5>OSC</h5>
+          <div
+            class="fader-unit"
+            style="float: left;">
+            <input type="text" 
+              id="osc1-frequency-slider"
+              class="span2 osc-frequency-slider"/>
+            <br>
+            freq
+          </div>
+        </div>
+
+        <div 
+          class="module-board"
+          style="float: left;">
+          <h5>FILTER</h5>
+          <div 
+            class="fader-unit"
+            style="float: left;">
+            <input type="text" 
+              id="filter1-frequency-slider"
+              class="span2 filter-frequency-slider"/>
+            <br>
+            cutoff
+          </div>
+        
+          <div 
+            class="fader-unit"
+            style="float: left;">
+            <input type="text" 
+              id="filter1-lfo-rate-slider"
+              class="span2 lfo-rate-slider"/>
+            <br>
+            lfo-rate
+          </div>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+    </div>
+
+  <!-- <div style="clear:both;"></div> -->
+  
+    <!-- osc/filt board 2 -->
+    <div class="module-board"
+      style="float: left;">
+      <div> 
+        <div
+          class="module-board"
+          style="float: left;" >
+          
+          <h5>OSC</h5>
+          <div
+            class="fader-unit"
+            style="float: left;">
+            <input type="text" 
+              id="osc2-frequency-slider"
+              class="span2 osc-frequency-slider"/>
+            <br>
+            freq
+          </div>
+        </div>
+
+        <div 
+          class="module-board"
+          style="float: left;">
+          <h5>FILTER</h5>
+          <div 
+            class="fader-unit"
+            style="float: left;">
+            <input type="text" 
+              id="filter2-frequency-slider"
+              class="span2 filter-frequency-slider"/>
+            <br>
+            cutoff
+          </div>
+        
+          <div 
+            class="fader-unit"
+            style="float: left;">
+            <input type="text" 
+              id="filter2-lfo-rate-slider"
+              class="span2 lfo-rate-slider"/>
+            <br>
+            lfo-rate
+          </div>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+    </div> 
+    <div style="clear:both;"></div>
+  </div> <!-- control panel -->
+    <script type="text/javascript">
+      var context,
+          oscs          = [],
+          audiofilters  = [],
+          lfos          = [],
+          lfoGains      = [],
+          audioRouters  = [],
+          lfoRouters    = [];
+
+      window.addEventListener('load', init, false);
+
+      function init() {
+        try {
+          window.AudioContext = window.AudioContext || window.webkitAudioContext;
+          context             = new AudioContext();
+        }
+
+        catch(e) {
+          console.log('fuck it');
+        }
+        setupAudioRouters();
+        setupOSCs();
+        setupLFOs();
+        setupSliders();
+      };
+
+      //playSound = function(buffer) {
+      //  var source    = context.createBufferSource();
+      //  source.buffer = buffer;
+      //  source.connect(context.destination);
+      //  source.start(0);
+      //} 
+      setupAudioRouters = function() {
+        for(var i = 0; i < 2; i++) {
+          audioRouters[i] = new AudioRouter(context.destination);
+        }
+        console.log(audioRouters);
+      };
+
+      setupOSCs = function() {
+        for (var i = 0; i < 2; i++) {
+          oscs[i]        = context.createOscillator();
+          oscs[i].type   = oscs[i].SQUARE; //sawtooth
+          oscs[i].frequency.value = 100;
+          oscs[i].start(0);
+          //oscs[i].connect(context.destination);
+          audiofilters[i]       = context.createBiquadFilter();
+          audiofilters[i].frequency.value = 500;
+          audiofilters[i].type  = audiofilters[i].LOWPASS;
+        
+          audioRouters[i].addNode(oscs[i]);
+          audioRouters[i].addNode(audiofilters[i]);
+
+          audioRouters[i].activateNode(oscs[i]);
+          audioRouters[i].activateNode(audiofilters[i]);
+        }
+       // console.log(audiofilters);
+      };
+
+      setupLFOs = function() {
+        for(var i = 0; i < 2; i++) {
+
+          lfoRouters[i]   = new AudioRouter(audiofilters[i].frequency);
+          console.log(i);
+          lfos[i]  = context.createOscillator();
+          lfos[i].frequency.value = 2;
+          lfos[i].type = lfos[i].SINE;
+          lfos[i].start(0);
+        
+          lfoGains[i] = context.createGainNode();
+          lfoGains[i].gain.value = 200;
+        
+          lfoRouters[i].addNode(lfos[i]);
+          lfoRouters[i].addNode(lfoGains[i]);
+
+          lfoRouters[i].activateNode(lfos[i]);
+          lfoRouters[i].activateNode(lfoGains[i]);
+        }
+
+      };
+
+      setupSliders = function() {
+        $('.osc-frequency-slider').each(function(index, slider) {
+            $(slider).slider({
+              min         : 0.0,
+              max         : 1.0,
+              step        : 0.01,
+              orientation : 'vertical',
+              value       : 0.5,
+              handle      : 'round'
+            })
+            .on('slide', function(event) {
+              oscs[index].frequency.value = event.value * 2000;
+            });
+        });
+
+        $('.filter-frequency-slider').each(function(index, slider) {
+            $(slider).slider({
+              min         : 0.0,
+              max         : 1.0,
+              step        : 0.01,
+              orientation : 'vertical',
+              value       : 0.5,
+              handle      : 'round'
+            })
+            .on('slide', function(event) {
+              audiofilters[index].frequency.value = event.value * 2000;
+            });
+        });
+
+        $('.lfo-rate-slider').each(function(index, slider) {
+            $(slider).slider({
+              min         : 1,
+              max         : 10,
+              step        : 1,
+              orientation : 'vertical',
+              value       : 5,
+              handle      : 'round'
+            })
+            .on('slide', function(event) {
+              lfos[index].frequency.value = [
+              16,
+              8,
+              6,
+              4,
+              3,
+              2,
+              1,
+              0.5,
+              0.25,
+              0.0125
+            ][event.value];
+
+            });
+        });
+      };
+
+      AudioRouter = function(endPoint) {
+        this.nodes        = [];
+        this.activeNodes  = [];
+
+        this.addNode      = function(node) {
+          //if node already in do nothing
+          if(this.nodes.indexOf(node) !== -1) {
+            console.log('node already added');
+            return;
+          }
+
+          this.nodes.push(node);
+          this.activeNodes.push(null);
+        };
+
+        this.activateNode  = function(node) {
+          //do nothing if node not in collection
+          var position = this.nodes.indexOf(node);
+          if (position === -1) {
+            console.log(position + ' not found!');
+            return;
+          }
+          console.log('activating ' + position);
+          //do nothing if already active
+          if (this.activeNodes[position] === this.nodes[position]) {
+            console.log(position + 'already active!');
+            return;
+          }
+          
+          //connect input
+          var i = position;
+          while(this.activeNodes[i--] === null && i >= 0) 
+
+          //if it's not the first node, connect input to it,
+          //otherwise don't do connect a damn thing to it
+          if (i > -1) {
+            console.log('not the first node, connecting input...' + i);
+            console.log(this.activeNodes)
+            this.activeNodes[i].disconnect();
+            this.activeNodes[i].connect(node);
+          }
+
+          //conect output
+          i = position;
+          while(this.activeNodes[i++] === null && i <= this.activeNodes.length -1) {}
+
+          //if its not the last node, connect its output to next node,
+          //but if it is the last output, connect it to context out
+          if(i < this.activeNodes.length - 1) {
+            console.log('not the last node. connectin to next node...');
+            node.connect(this.activeNodes[i]);
+          }
+          else {
+            console.log('last node. connect to dest...');
+            node.connect(endPoint);
+          }
+         
+          //place into activeNodes
+          this.activeNodes[position] = node;
+        };
+
+        this.deactivateNode = function(node) {
+          var position = this.nodes.indexOf(node);
+          console.log(position);
+          //do nothing if node not in collection
+          if (position === -1)
+            return;
+
+          //do nothing if inactive already
+          if (this.activeNodes[position] === null)
+            return;
+
+          //disconect from output
+          var j = position;
+          while(this.activeNodes[j++] === null && j <= this.activeNodes.length -1) {}
+
+          if(j < this.nodes.length - 1) {
+            newOutput = activeNodes[j];
+            node.disconnect();
+          }
+          else {
+            newOutput = endPoint;
+            node.disconnect();
+          }
+
+          //disconnect input if there is one
+          var i = position;
+          while(this.activeNodes[i--] == null && i > 0) {}
+
+          if (i > -1) {
+            this.activeNodes[i].disconnect();
+            this.activeNodes[i].connect(newOutput);
+          }
+
+                   
+          //remove from activeNodes
+          this.activeNodes[position] = null;
+
+        };
+
+      }; //end of audiorouter
+    </script>
+  </body>
+</html>
