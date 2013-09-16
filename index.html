@@ -25,6 +25,7 @@
   border-width: 1px;
   text-align  : center;
   padding     : 8px;
+  margin      : 3px;
 
 }
 .slider-selection
@@ -55,14 +56,43 @@
   border-color  : #fff;
   border-style  : solid;
   border-width  : 3px;
-  padding:      : 10px;
+  padding       : 10px;
 }
 
+.toggle-switch input[type=checkbox] {
+position: absolute; 
+overflow: hidden; 
+clip: rect(0 0 0 0); 
+height:1px; 
+width:1px; 
+margin:-1px; 
+padding:0;
+border:0;
+}
+
+.toggle-switch input[type=checkbox] + label {
+padding-left:20px;
+height:15px; 
+display:inline-block;
+line-height:15px;
+background-repeat:no-repeat;
+background-position: 0 0;
+font-size:15px;
+vertical-align:middle;
+cursor:pointer;
+}
+
+.toggle-switch input[type=checkbox]:checked + label {
+background-position: 0 -15px;
+}
+
+.toggle-switch label { background-image:url(http://csscheckbox.com/checkboxes/lite-x-gray.png); }
  </style>
   </head>
   <body style="background-color: #000000;">
-  <h1>..cloud.synth..</h1>
-  <div class="control-panel">
+    <h1>..cloud.synth..</h1>
+  
+    <div class="control-panel">
     <div class="module-board"
       style="float: left;">
       <div> 
@@ -71,6 +101,22 @@
           style="float: left;" >
           
           <h5>OSC</h5>
+          
+          <div class="toggle-switch">
+            <input type="checkbox" id="osc1-on-switch" />
+            <label for="osc1-on-switch" />
+          </div>
+          
+          <div
+            class="fader-unit"
+            style="float: left;">
+            <input type="text" 
+              id="osc1-gain-slider"
+              class="span2 osc-frequency-slider"/>
+            <br>
+            gain
+          </div>
+
           <div
             class="fader-unit"
             style="float: left;">
@@ -86,6 +132,12 @@
           class="module-board"
           style="float: left;">
           <h5>FILTER</h5>
+          
+          <div class="toggle-switch">
+            <input type="checkbox" id="filter1-on-switch" />
+            <label for="filter1-on-switch" />
+          </div>
+
           <div 
             class="fader-unit"
             style="float: left;">
@@ -95,7 +147,23 @@
             <br>
             cutoff
           </div>
-        
+          
+          <div 
+            class="fader-unit"
+            style="float: left;">
+            <input type="text" 
+              id="filter1-lfo-amt-slider"
+              class="span2 lfo-rate-slider"/>
+            <br>
+            lfo-amt
+          </div>
+        </div>
+
+        <div 
+          class="module-board"
+          style="float: left;">
+          <h5>LFO</h5>
+
           <div 
             class="fader-unit"
             style="float: left;">
@@ -103,12 +171,14 @@
               id="filter1-lfo-rate-slider"
               class="span2 lfo-rate-slider"/>
             <br>
-            lfo-rate
+            rate
           </div>
-        </div>
+        </div> <!-- lfo module -->
+
         <div style="clear:both;"></div>
+
       </div>
-    </div>
+    </div> <!-- osc/filter/lfo module -->
 
   <!-- <div style="clear:both;"></div> -->
   
