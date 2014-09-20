@@ -6,47 +6,47 @@ body
 
 .fader-unit
 {
-  border-color: #fff;
-  border-style: solid;
-  border-width: 1px;
-  text-align  : center;
-  padding     : 8px;
+  border-color  : #fff;
+  border-style  : solid;
+  border-width  : 1px;
+  text-align    : center;
+  padding       : 8px;
 }
 
 .module-board
 {
-  border-color: #fff;
-  border-style: solid;
-  border-width: 1px;
-  text-align  : center;
-  padding     : 8px;
-  margin      : 3px;
-  display     : inline-block;
+  border-color  : #fff;
+  border-style  : solid;
+  border-width  : 1px;
+  text-align    : center;
+  padding       : 8px;
+  margin        : 3px;
+  display       : inline-block;
 }
 
 .slider-selection
 {
-  background: #000;
-  border-color: #fff;
-  border-style: solid;
-  border-width: 1px;
+  background    : #000;
+  border-color  : #fff;
+  border-style  : solid;
+  border-width  : 1px;
 }
 
 .slider-track
 {
-  background: #fff;
-  border-color: #fff;
-  border-style: solid;
-  border-width: 1px;
+  background    : #fff;
+  border-color  : #fff;
+  border-style  : solid;
+  border-width  : 1px;
 }
 
 .slider-handle
 {
-  background: #000;
-  border-color: #fff;
-  border-style: solid;
-  border-width: 1px;
-  opacity     : 1;
+  background    : #000;
+  border-color  : #fff;
+  border-style  : solid;
+  border-width  : 1px;
+  opacity       : 1;
 }
 
 .control-panel
@@ -62,36 +62,36 @@ background-image:url('../img/background.jpg'); background-color: #000000; backgr
 
 .toggle-switch input[type=checkbox]
 {
-  position: absolute; 
-  overflow: hidden; 
-  clip: rect(0 0 0 0); 
-  height:1px; 
-  width:1px; 
-  margin:-1px; 
-  padding:0;
-  border:0;
+  position  : absolute; 
+  overflow  : hidden; 
+  clip      : rect(0 0 0 0); 
+  height    : 1px; 
+  width     : 1px; 
+  margin    : -1px; 
+  padding   : 0;
+  border    : 0;
 }
 
 .toggle-switch input[type=checkbox] + label
 {
-  padding-left:20px;
-  height:15px; 
-  display:inline-block;
-  line-height:15px;
-  background-repeat:no-repeat;
-  background-position: 0 0;
-  font-size:15px;
-  vertical-align:middle;
-  cursor:pointer;
+  padding-left        : 20px;
+  height              : 15px; 
+  display             : inline-block;
+  line-height         : 15px;
+  background-repeat   : no-repeat;
+  background-position : 0 0;
+  font-size           : 15px;
+  vertical-align      : middle;
+  cursor              : pointer;
 }
 
 .toggle-switch input[type=checkbox]:checked + label
 {
-  background-position: 0 -15px;
+  background-position : 0 -15px;
 }
 
 .toggle-switch label
 {
-  background-image:url(http://csscheckbox.com/checkboxes/lite-x-gray.png);
+  background-image : url(http://csscheckbox.com/checkboxes/lite-x-gray.png);
 }
 
