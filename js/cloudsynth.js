@@ -49,9 +49,6 @@ var BreakoutNode = function(node) {
   };
 };
 
-var setupSliders = function() {
-};
-
 var bindGain = function(gain, el) {
   el.slider({
         min         : 1.0,
@@ -145,7 +142,7 @@ var setup = function() {
 
   init = function() {
     try {
-      //window.AudioContext = window.AudioContext || window.webkitAudioContext;
+      window.AudioContext = window.AudioContext || window.webkitAudioContext;
       context             = new AudioContext();
 
       setupDevices(context);
