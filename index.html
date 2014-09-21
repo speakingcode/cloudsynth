@@ -1,117 +1,225 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
-    <script src="libs/slider/js/bootstrap-slider.js"></script>
-    
-    <script src="js/cloudsynth.js"></script>
+<head>
 
-    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="libs/slider/css/slider.css" rel="stylesheet" media="screen">
-    <link href="stylesheets/application.css" rel="stylesheet" media="screen">
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="libs/slider/js/bootstrap-slider.js"></script>
+
+<script src="js/cloudsynth.js"></script>
+
+<link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="libs/slider/css/slider.css" rel="stylesheet" media="screen">
+<link href="stylesheets/application.css" rel="stylesheet" media="screen">
 
 
-  </head>
-  <body> 
-    <h1>..cloud.synth..</h1>
-    
+</head>
+<body> 
+<h1>..cloud.synth..</h1>
+
+<div
+  class="control-panel">
+
+  <div class="module-board" >
     <div
-      class="control-panel">
-    
-      <div class="module-board" >
-          <div
-            class="module-board"> 
-            <h5>OSC 1</h5>
-            
-            <div
-              class="toggle-switch">
-              <input
-                type="checkbox"
-                id="osc1-on-switch" />
-              <label
-                for="osc1-on-switch" />
-            </div>
-            
-            <div
-              class="fader-unit"
-              style="float: left;">
-              <input type="text" 
-                id="osc1-gain-slider"
-                class="span2 osc-frequency-slider"/>
-              <br>
-              gain
-            </div>
+      class="module-board"> 
+      <h5>OSC 1</h5>
 
-            <div
-              class="fader-unit"
-              style="float: left;">
-              <input type="text" 
-                id="osc1-frequency-slider"
-                class="span2 osc-frequency-slider"/>
-              <br>
-              freq
-            </div>
-          </div>
+      <div
+        class="toggle-switch">
+        <input
+        type="checkbox"
+        id="osc1-on-switch" />
+        <label
+          for="osc1-on-switch" />
+      </div>
 
-          <div 
-            class="module-board">
-            <h5>FILTER 1</h5>
-            
-            <div class="toggle-switch">
-              <input type="checkbox" id="filter1-on-switch" />
-              <label for="filter1-on-switch" />
-            </div>
+      <div
+          class="fader-unit"
+          style="float: left;">
+          <input type="text" 
+          id="osc1-gain-slider"
+          class="span2 osc-frequency-slider"/>
+          <br>
+          gain
+      </div>
 
-            <div 
+      <div
+          class="fader-unit"
+          style="float: left;">
+          <input type="text" 
+          id="osc1-frequency-slider"
+          class="span2 osc-frequency-slider"/>
+          <br>
+          freq
+      </div>
+    </div>
+
+    <div 
+      class="module-board">
+        <h5>FILTER 1</h5>
+
+      <div class="toggle-switch">
+          <input type="checkbox" id="filter1-on-switch" />
+          <label for="filter1-on-switch" />
+      </div>
+
+      <div 
+            class="fader-unit"
+            style="float: left;">
+            <input type="text" 
+            id="filter1-frequency-slider"
+            class="span2 filter-frequency-slider"/>
+            <br>
+            cutoff
+      </div>
+
+      <div 
+            class="fader-unit"
+            style="float: left;">
+            <input type="text" 
+            id="filter1-lfo1-amt-slider"
+            class="span2 filter-lfo-amt-slider"/>
+            <br>
+            lfo1-amt
+      </div>
+
+      <div 
+            class="fader-unit"
+            style="float: left;">
+            <input type="text" 
+            id="filter1-lfo2-amt-slider"
+            class="span2 filter-lfo-amt-slider"/>
+            <br>
+            lfo2-amt
+      </div>
+
+
+    </div>
+
+    <div 
+          class="module-board">
+          <h5>LFO 1</h5>
+      <div   class="toggle-switch">
+            <input type="checkbox" id="lfo1-on-switch" />
+            <label for="osc1-on-switch" />
+      </div>
+      <div 
               class="fader-unit"
               style="float: left;">
               <input type="text" 
-                id="filter1-frequency-slider"
-                class="span2 filter-frequency-slider"/>
-              <br>
-              cutoff
-            </div>
-            
-            <div 
-              class="fader-unit"
-              style="float: left;">
-              <input type="text" 
-                id="filter1-lfo-amt-slider"
-                class="span2 filter-lfo-amt-slider"/>
-              <br>
-              lfo-amt
-            </div>
-          </div>
-          
-          <div 
-            class="module-board">
-            <h5>LFO 1</h5>
-<div   class="toggle-switch">
-              <input type="checkbox" id="lfo1-on-switch" />
-              <label for="osc1-on-switch" />
-            </div>
-            <div 
-              class="fader-unit"
-              style="float: left;">
-              <input type="text" 
-                id="filter1-lfo-rate-slider"
-                class="span2 lfo-rate-slider"/>
+              id="lfo1-rate-slider"
+              class="span2 lfo-rate-slider"/>
               <br>
               rate
-            </div>
-          </div> <!-- lfo module -->
-          
-          <div style="clear:both;"></div>
-          
       </div>
-    </div> <!-- osc/filter/lfo module -->
-  
-  </div> <!-- control panel -->
+    </div> <!-- lfo module -->
 
-  <script type="text/javascript">
-      setupSliders();
-  </script>
+    <div style="clear:both;"></div>
+
+  </div> <!-- osc/filter/lfo module -->
+  <br>
+
+  <div class="module-board" >
+    <div
+          class="module-board"> 
+          <h5>OSC 2</h5>
+
+      <div
+            class="toggle-switch">
+            <input
+            type="checkbox"
+            id="osc2-on-switch" />
+            <label
+              for="osc2-on-switch" />
+            </div>
+
+      <div
+              class="fader-unit"
+              style="float: left;">
+              <input type="text" 
+              id="osc2-gain-slider"
+              class="span2 osc-frequency-slider"/>
+              <br>
+              gain
+      </div>
+
+      <div
+              class="fader-unit"
+              style="float: left;">
+              <input type="text" 
+              id="osc2-frequency-slider"
+              class="span2 osc-frequency-slider"/>
+              <br>
+              freq
+      </div>
+    </div>
+
+    <div 
+            class="module-board">
+            <h5>FILTER 2</h5>
+
+        <div class="toggle-switch">
+              <input type="checkbox" id="filter2-on-switch" />
+              <label for="filter2-on-switch" />
+              </div>
+
+              <div 
+                class="fader-unit"
+                style="float: left;">
+                <input type="text" 
+                id="filter2-frequency-slider"
+                class="span2 filter-frequency-slider"/>
+                <br>
+                cutoff
+              </div>
+
+              <div 
+                class="fader-unit"
+                style="float: left;">
+                <input type="text" 
+                id="filter2-lfo1-amt-slider"
+                class="span2 filter-lfo-amt-slider"/>
+                <br>
+                lfo1-amt
+              </div>
+
+            <div 
+                class="fader-unit"
+                style="float: left;">
+                <input type="text" 
+                id="filter2-lfo2-amt-slider"
+                class="span2 filter-lfo-amt-slider"/>
+                <br>
+                lfo2-amt
+              </div>
+            </div>
+
+            <div 
+              class="module-board">
+              <h5>LFO 2</h5>
+              <div   class="toggle-switch">
+                <input type="checkbox" id="lfo2-on-switch" />
+                <label for="osc2-on-switch" />
+                </div>
+                <div 
+                  class="fader-unit"
+                  style="float: left;">
+                  <input type="text" 
+                  id="lfo2-rate-slider"
+                  class="span2 lfo-rate-slider"/>
+                  <br>
+                  rate
+                </div>
+              </div> <!-- lfo module -->
+
+
+          </div> <!-- osc/filter/lfo module -->
+
+        </div> <!-- control panel -->
+
+      <script type="text/javascript">
+setup();
+    </script>
   </body>
 </html>

@@ -2,6 +2,7 @@ body
 {
   background-color  : #000000;
   text-align        : center;
+  color        : #ffffff;
 }
 
 .fader-unit
@@ -58,6 +59,7 @@ body
   padding       : 10px;
   text-align    : center;
 background-image:url('../img/background.jpg'); background-color: #000000; background-repeat:no-repeat; background-position:center center;
+
 }
 
 .toggle-switch input[type=checkbox]
