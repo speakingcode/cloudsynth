@@ -136,11 +136,7 @@ var bindLFOAmount = function(amount, el) {
 
 var setup = function() {
   console.log("setup() called!");
-  var icontext,
-      init;
-
-
-  init = function() {
+  var init = function() {
     try {
       window.AudioContext = window.AudioContext || window.webkitAudioContext;
       context             = new AudioContext();
@@ -162,8 +158,8 @@ var setupDevices = function(context) {
   var osc1    = setupOsc($('#osc1-frequency-slider'), $('#osc1-gain-slider')),
       osc2    = setupOsc($('#osc2-frequency-slider'), $('#osc2-gain-slider')),
       filter1 = setupFilter($('#filter1-frequency-slider'),$('#filter1-lfo1-amt-slider'), $('#filter1-lfo2-amt-slider')),
-      filter2 = setupFilter($('#filter2-frequency-slider'),$('#filter2-lfo1-amt-slider'), $('#filter2-lfo2-amt-slider'))
-      lfo1    = setupLFO($('#lfo1-rate-slider'));
+      filter2 = setupFilter($('#filter2-frequency-slider'),$('#filter2-lfo1-amt-slider'), $('#filter2-lfo2-amt-slider')),
+      lfo1    = setupLFO($('#lfo1-rate-slider')),
       lfo2    = setupLFO($('#lfo2-rate-slider'));
 
   osc1.osc.connect(osc1.gain.node);
@@ -192,7 +188,7 @@ var setupDevices = function(context) {
 var setupOsc = function(freqEl, gainEl) {
   var osc1 = {
     osc : new BreakoutNode(context.createOscillator()),
-    gain: new BreakoutNode(context.createGainNode()),
+    gain: new BreakoutNode(context.createGain()),
   };
   osc1.osc.node.type = osc1.osc.node.SAWTOOTH;
   osc1.osc.node.frequency.value = 100;
@@ -207,8 +203,8 @@ var setupOsc = function(freqEl, gainEl) {
 var setupFilter = function(freqEl, lfo1El, lfo2El) {
   var filter1 = {
     filter : new BreakoutNode(context.createBiquadFilter()),
-    lfo1Amount : new BreakoutNode(context.createGainNode()),
-    lfo2Amount  : new BreakoutNode(context.createGainNode())
+    lfo1Amount : new BreakoutNode(context.createGain()),
+    lfo2Amount  : new BreakoutNode(context.createGain())
   };
 
   bindFilterCutoffFrequency(filter1.filter.node, freqEl);
